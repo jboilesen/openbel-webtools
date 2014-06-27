@@ -6,7 +6,7 @@ OpenBEL is an open source and open community project providing BEL (Biological E
 1. Graph Structure
 ------------------
 
-This project make use of JSON Graph Specification Project (https://github.com/jsongraph/json-graph-specification) to make BEL files graphs available for multi-purpose use.
+This project make use of JSON Graph Specification Project (http://json-graph-format.info/) to make BEL files graphs available for multi-purpose use.
 
 2. Graph Plugins
 ----------------
