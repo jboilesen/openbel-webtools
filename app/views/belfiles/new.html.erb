@@ -1,0 +1,10 @@
+<h1>New BEL file</h1>
+<fieldset>
+<%= form_for :belfile, url: belfiles_path do |f| %>
+  <label>Title:</label> <%= f.text_field :title %><br/>
+  <label>Description:</label><%= f.text_area :description, size: "60x12" %><br/>
+  <label>BEL file:</label><%= f.file_field :belfile %><br/>
+  <label>Or BEL file URL:</label><%= f.text_field :url %><br/>
+  <%= f.submit "Create" %>
+<% end %>
+</fieldset>

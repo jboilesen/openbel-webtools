@@ -1,0 +1,16 @@
+<h1>Listing BEL Files</h1>
+ 
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+  </tr>
+ 
+  <% @belfiles.each do |belfile| %>
+    <tr>
+      <td><%= belfile.title %></td>
+      <td><%= belfile.description %></td>
+      <td><%= link_to 'Show', belfile_path(belfile) %></td>
+    </tr>
+  <% end %>
+</table>

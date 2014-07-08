@@ -1,0 +1,2 @@
+module BelfilesHelper
+end
