@@ -3,9 +3,7 @@ class CreateBelfiles < ActiveRecord::Migration
     create_table :belfiles do |t|
       t.string :title
       t.text :description
-      t.binary :belfile
-      t.string :url
-
+      t.string :belfile_path
       t.timestamps
     end
   end

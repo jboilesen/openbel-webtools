@@ -16,8 +16,7 @@ ActiveRecord::Schema.define(version: 20140708044447) do
   create_table "belfiles", force: true do |t|
     t.string   "title"
     t.text     "description"
-    t.binary   "belfile"
-    t.string   "url"
+    t.string   "belfile_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
