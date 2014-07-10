@@ -17,7 +17,7 @@ class BelfilesController < ApplicationController
       directory = "public/belfiles"
       belfile_path = directory + '/' + filename
       if !File.exist?(belfile_path)
-        @belfile.belfile_path
+        @belfile.belfile_path = belfile_path
         path = File.join(directory, filename)
         File.open(path, "wb") { |f| f.write(belfile_params[:belfile].read) }
         @belfile.save
