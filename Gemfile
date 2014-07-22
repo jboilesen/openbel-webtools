@@ -39,4 +39,4 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'bel'
+gem 'bel', git: 'https://github.com/OpenBEL/bel.rb.git'
