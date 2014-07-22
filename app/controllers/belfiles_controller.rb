@@ -1,4 +1,7 @@
 require 'open-uri'
+require 'json'
+require 'bel'
+
 class BelfilesController < ApplicationController
   BELFILES_FOLDER = "public/belfiles/"
   def new
@@ -6,8 +9,19 @@ class BelfilesController < ApplicationController
   def index
     @belfiles = Belfile.all
   end
+  def graph
+    @belfile = Belfile.find(params[:id])
+  end
   def show
     @belfile = Belfile.find(params[:id])
+    bel_parser = BEL::Script::Parser.new()
+    bel_content = File.open(@belfile.belfile_path, 'r:UTF-8').read
+    bel_parser.parse(bel_content) do |parsed_object|
+      ## here we get bel expressions parsed from belfile
+      ## (instead of parsing it in show request it may be better to
+      ## parse it and validate it when user upload file/url on "new")
+      puts "#{parsed_object.class} - #{parsed_object.to_s}"
+    end
   end
   def create
     @belfile = Belfile.new
