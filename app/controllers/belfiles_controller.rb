@@ -14,9 +14,8 @@ class BelfilesController < ApplicationController
   end
   def show
     @belfile = Belfile.find(params[:id])
-    bel_parser = BEL::Script::Parser.new()
     bel_content = File.open(@belfile.belfile_path, 'r:UTF-8').read
-    bel_parser.parse(bel_content) do |parsed_object|
+    BEL::Script.parse(bel_content) do |parsed_object|
       ## here we get bel expressions parsed from belfile
       ## (instead of parsing it in show request it may be better to
       ## parse it and validate it when user upload file/url on "new")
