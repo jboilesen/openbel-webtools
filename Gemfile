@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+group :development do
+   gem 'pry'
+   gem 'pry-doc'
+   gem 'pry-rails'
+end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
@@ -40,3 +45,4 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'bel', git: 'https://github.com/OpenBEL/bel.rb.git'
+gem 'json'

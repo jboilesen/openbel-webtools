@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140708044447) do
+ActiveRecord::Schema.define(version: 20140806032047) do
 
   create_table "belfiles", force: true do |t|
     t.string   "title"
@@ -20,5 +20,38 @@ ActiveRecord::Schema.define(version: 20140708044447) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "edges", force: true do |t|
+    t.string   "label"
+    t.integer  "source_id"
+    t.integer  "target_id"
+    t.integer  "graph_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "edges", ["graph_id"], name: "index_edges_on_graph_id", using: :btree
+  add_index "edges", ["source_id"], name: "index_edges_on_source_id", using: :btree
+  add_index "edges", ["target_id"], name: "index_edges_on_target_id", using: :btree
+
+  create_table "graphs", force: true do |t|
+    t.string   "label"
+    t.boolean  "directed"
+    t.integer  "belfile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "graphs", ["belfile_id"], name: "index_graphs_on_belfile_id", using: :btree
+
+  create_table "nodes", force: true do |t|
+    t.string   "label"
+    t.integer  "graph_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "nodes", ["graph_id"], name: "index_nodes_on_graph_id", using: :btree
+  add_index "nodes", ["label"], name: "index_nodes_on_label", using: :btree
 
 end
