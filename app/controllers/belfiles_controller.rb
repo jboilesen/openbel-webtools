@@ -18,6 +18,7 @@ class BelfilesController < ApplicationController
         if @source_node.blank?
           @source_node = Node.new
           @source_node.label = "#{statement.subject}"
+          @source_node.fx = "#{statement.subject.fx}"
           @source_node.graph = graph
           @source_node.save
         end
@@ -26,6 +27,7 @@ class BelfilesController < ApplicationController
         if @target_node.blank?
           @target_node = Node.new
           @target_node.label = "#{statement.object}"
+          @target_node.fx = "#{statement.object.fx}"
           @target_node.graph = graph
           @target_node.save
         end
@@ -42,6 +44,7 @@ class BelfilesController < ApplicationController
         if @statement_subject_node.blank?
           @statement_subject_node = Node.new
           @statement_subject_node.label = "#{statement.subject}"
+          @statement_subject_node.fx = "#{statement.subject.fx}"
           @statement_subject_node.graph = graph
           @statement_subject_node.save
         end
@@ -51,6 +54,7 @@ class BelfilesController < ApplicationController
         if @statement_object_subject_node.blank?
           @statement_object_subject_node = Node.new
           @statement_object_subject_node.label = "#{statement.object.subject}"
+          @statement_object_subject_node.fx = "#{statement.object.subject.fx}"
           @statement_object_subject_node.graph = graph
           @statement_object_subject_node.save
         end
@@ -60,6 +64,7 @@ class BelfilesController < ApplicationController
         if @statement_object_object_node.blank?
           @statement_object_object_node = Node.new
           @statement_object_object_node.label = "#{statement.object.object}"
+          @statement_object_object_node.fx = "#{statement.object.object.fx}"
           @statement_object_object_node.graph = graph
           @statement_object_object_node.save
         end
@@ -91,6 +96,7 @@ class BelfilesController < ApplicationController
         if @subject_statement_node.blank?
           @subject_statement_node = Node.new
           @subject_statement_node.label = "#{statement.subject}"
+          @subject_statement_node.fx = "#{statement.subject.fx}"
           @subject_statement_node.graph = graph
           @subject_statement_node.save
         end
@@ -128,16 +134,8 @@ class BelfilesController < ApplicationController
 
   def graph
     @belfile = Belfile.find(params[:id])
-    @graph = Graph.find_by('belfile_id' => params[:id])
-    bel_content = File.open(@belfile.belfile_path, 'r:UTF-8').read
-    BEL::Script.parse(bel_content) do |parsed_object|
-      ## here we get bel expressions parsed from belfile
-      if parsed_object.is_a?(Statement)
-        build_graph(@graph, parsed_object)
-      end
-    end
+    @graph = @belfile.graph
   end
-
   def create
     @belfile = Belfile.new
     @belfile.title = belfile_params[:title]
@@ -156,12 +154,11 @@ class BelfilesController < ApplicationController
         File.open(path, "wb") { |f| f.write(belfile_params[:belfile].read) }
         @belfile.save
         @graph.save
-        redirect_to @belfile
       else
+        ## TODO: file already exists error message
         redirect_to new_belfile_path
       end
     elsif !belfile_params[:url].nil?
-      @belfile = Belfile.new
       @belfile.title = belfile_params[:title]
       @belfile.description = belfile_params[:description]
       ## Filename will be based on title
@@ -169,7 +166,7 @@ class BelfilesController < ApplicationController
       ## So, we sanitize it
       filename.gsub!(/^.*(\\|\/)/, '')
       filename.gsub!(/[^0-9A-Za-z.\-]/, '_')
-      filename = filename + '.txt'
+      filename = filename + '.bel'
       belfile_path = BELFILES_FOLDER + filename
       ## If it not exists, create it
       if !File.exist?(belfile_path)
@@ -181,13 +178,22 @@ class BelfilesController < ApplicationController
         end
         @belfile.save
         @graph.save
-        redirect_to @belfile
       else
+        ## TODO: file already exists error message
         redirect_to new_belfile_path
       end
     else
+      ## TODO: fill in form correctly error message
       redirect_to new_belfile_path
     end
+    bel_content = File.open(@belfile.belfile_path, 'r:UTF-8').read
+    BEL::Script.parse(bel_content) do |parsed_object|
+      ## here we get bel expressions parsed from belfile
+      if parsed_object.is_a?(Statement)
+        build_graph(@graph, parsed_object)
+      end
+    end
+    redirect_to @belfile
   end
 
 private

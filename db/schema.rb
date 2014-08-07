@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140806032047) do
+ActiveRecord::Schema.define(version: 20140807024217) do
 
   create_table "belfiles", force: true do |t|
     t.string   "title"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20140806032047) do
 
   create_table "nodes", force: true do |t|
     t.string   "label"
+    t.string   "fx"
     t.integer  "graph_id"
     t.datetime "created_at"
     t.datetime "updated_at"
