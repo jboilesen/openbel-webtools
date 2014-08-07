@@ -1,4 +1,13 @@
 {
-  title: "<%= @belfile.title %>",
-  description: "<%= @belfile.description %>"
+  "graph": {
+    "directed": true,
+    "label": "<%= @belfile.title %> Graph",
+    "type": "Belfile Graph",
+    "metadata": {
+      "description": "<%= @belfile.description %>",
+      "url": "<%= belfile_path(@belfile) %>"
+    },
+    "nodes": <%=raw nodes_as_json(@belfile.graph.nodes) %>,
+    "edges": <%=raw edges_as_json(@belfile.graph.edges) %>
+  }
 }

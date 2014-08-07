@@ -134,8 +134,8 @@ class BelfilesController < ApplicationController
 
   def graph
     @belfile = Belfile.find(params[:id])
-    @graph = @belfile.graph
   end
+
   def create
     @belfile = Belfile.new
     @belfile.title = belfile_params[:title]
