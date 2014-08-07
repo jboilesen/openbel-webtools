@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require cytoscape.js/dist/cytoscape.js
+//= require d3.js/d3.js
+//= require scripts.js
