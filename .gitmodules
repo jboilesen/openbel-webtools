@@ -1,3 +1,6 @@
 [submodule "app/assets/javascripts/cytoscape.js"]
 	path = app/assets/javascripts/cytoscape.js
 	url = https://github.com/cytoscape/cytoscape.js.git
+[submodule "app/assets/javascripts/d3.js"]
+	path = app/assets/javascripts/d3.js
+	url = https://github.com/mbostock/d3.git
