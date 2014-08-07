@@ -4,3 +4,6 @@
 [submodule "app/assets/javascripts/d3.js"]
 	path = app/assets/javascripts/d3.js
 	url = https://github.com/mbostock/d3.git
+[submodule "app/assets/javascripts/d3-plugins"]
+	path = app/assets/javascripts/d3-plugins
+	url = https://github.com/d3/d3-plugins.git
