@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807024217) do
+ActiveRecord::Schema.define(version: 20140808083253) do
 
   create_table "belfiles", force: true do |t|
     t.string   "title"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20140807024217) do
   end
 
   create_table "edges", force: true do |t|
-    t.string   "label"
+    t.string   "relation"
     t.integer  "source_id"
     t.integer  "target_id"
     t.integer  "graph_id"

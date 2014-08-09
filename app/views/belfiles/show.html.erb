@@ -1,2 +1,71 @@
+<script type="text/javascript">
+$(document).ready(function(){
+  /*
+   * Cytoscape.js
+   */
+  $.ajax({
+    url: <%=raw @json_graph_cystoscape_url %>,
+    dataType: "json",
+    success: function(data){
+      var graph = data;
+      $("#cy").cytoscape({
+        textureOnViewport: true,
+        boxSelectionEnabled: false,
+        style: cytoscape.stylesheet().selector('node').css({
+          'content': 'data(name)',
+          'text-valign': 'center',
+          'color': 'white',
+          'text-outline-width': 2,
+          'text-outline-color': '#888'
+        }).selector('edge').css({
+          'target-arrow-shape': 'triangle',
+          'content': 'data(relation)'
+        }).selector(':selected').css({
+          'background-color': 'black',
+          'line-color': 'black',
+          'target-arrow-color': 'black',
+          'source-arrow-color': 'black'
+        }).selector('.faded').css({
+          'opacity': 0.25,
+          'text-opacity': 0
+        }),
+        elements: graph,
+        layout: {
+          name: "concentric"
+        },
+        ready: function(){
+          window.cy = this;
+          cy.elements().unselectify();
+          cy.on('tap', 'node', function(e){
+            var node = e.cyTarget; 
+            var neighborhood = node.neighborhood().add(node);  
+            cy.elements().addClass('faded');
+            neighborhood.removeClass('faded');
+          });
+      
+          cy.on('tap', function(e){
+            if( e.cyTarget === cy ){
+              cy.elements().removeClass('faded');
+            }
+          });
+        }
+      }).cy(function(){
+        $('#cy').cytoscapeNavigator();
+      });
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      alert(jqXHR.status);
+      alert(textStatus);
+      alert(errorThrown);
+   }
+  });
+
+});
+</script>
+
 <h1><%= @belfile.title %></h1>
 <p><%= @belfile.description %></p>
+
+<div id="cy"></div>
+
+<div id="teste"></div>

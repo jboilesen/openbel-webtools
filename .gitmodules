@@ -7,3 +7,6 @@
 [submodule "app/assets/javascripts/d3-plugins"]
 	path = app/assets/javascripts/d3-plugins
 	url = https://github.com/d3/d3-plugins.git
+[submodule "app/assets/javascripts/cytoscape.js-navigator"]
+	path = app/assets/javascripts/cytoscape.js-navigator
+	url = https://github.com/cytoscape/cytoscape.js-navigator.git

@@ -1,13 +1,32 @@
-{
-  "graph": {
-    "directed": <%= @belfile.graph.directed %>,
-    "label": "<%= @belfile.title %> Graph",
-    "type": "Belfile Graph",
-    "metadata": {
-      "description": "<%= @belfile.description %>",
-      "url": "<%= belfile_path(@belfile) %>"
-    },
-    "nodes": <%=raw nodes_as_json(@belfile.graph.nodes) %>,
-    "edges": <%=raw edges_as_json(@belfile.graph.edges) %>
-  }
-}
+<%
+case params[:type].to_i
+  when JSON_GRAPH_SPECIFICATION
+    %>
+      {
+        graph: {
+          directed: <%= @belfile.graph.directed %>,
+          label: "<%= @belfile.title %> Graph",
+          type: "Belfile Graph",
+          metadata: {
+            description: "<%= @belfile.description %>",
+            url: "<%= belfile_path(@belfile) %>"
+          },
+          nodes: <%=raw nodes_as_json_graph_specification(@belfile.graph.nodes) %>,
+          edges: <%=raw edges_as_json_graph_specification(@belfile.graph.edges) %>
+        }
+      }
+    <%
+  when JSON_GRAPH_CYTOSCAPE
+    %>
+      {
+        "nodes": <%=raw nodes_as_json_graph_cytoscape(@belfile.graph.nodes) %>,
+        "edges": <%=raw edges_as_json_graph_cytoscape(@belfile.graph.edges) %>
+      }
+    <%
+  when JSON_GRAPH_D3
+  else
+    %>
+      Type not supported.
+    <%
+end
+%>

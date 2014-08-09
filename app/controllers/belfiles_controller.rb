@@ -14,7 +14,7 @@ class BelfilesController < ApplicationController
       ## 3. create edges following each case rules
       if statement.simple?
         # Statement subject
-        @source_node = Node.find_by('label' => "#{statement.subject}")
+        @source_node = Node.find_by label: "#{statement.subject}", graph_id: graph.id
         if @source_node.blank?
           @source_node = Node.new
           @source_node.label = "#{statement.subject}"
@@ -23,7 +23,7 @@ class BelfilesController < ApplicationController
           @source_node.save
         end
         # Statement object
-        @target_node = Node.find_by('label' => "#{statement.object}")
+        @target_node = Node.find_by label: "#{statement.object}", graph_id: graph.id
         if @target_node.blank?
           @target_node = Node.new
           @target_node.label = "#{statement.object}"
@@ -33,14 +33,14 @@ class BelfilesController < ApplicationController
         end
         ## In a simple statement, edges simply connect subject to object
         @edge = Edge.new
-        @edge.label = "#{statement.relationship}"
+        @edge.relation = "#{statement.relationship}"
         @edge.source = @source_node
         @edge.target = @target_node
         @edge.graph = graph
         @edge.save
       elsif statement.nested?
         # Statement subject node
-        @statement_subject_node = Node.find_by('label' => "#{statement.subject}")
+        @statement_subject_node = Node.find_by label: "#{statement.subject}", graph_id: graph.id
         if @statement_subject_node.blank?
           @statement_subject_node = Node.new
           @statement_subject_node.label = "#{statement.subject}"
@@ -50,7 +50,7 @@ class BelfilesController < ApplicationController
         end
 
         # Statement object subject node
-        @statement_object_subject_node = Node.find_by('label' => "#{statement.object.subject}")
+        @statement_object_subject_node = Node.find_by label: "#{statement.object.subject}", graph_id: graph.id
         if @statement_object_subject_node.blank?
           @statement_object_subject_node = Node.new
           @statement_object_subject_node.label = "#{statement.object.subject}"
@@ -60,7 +60,7 @@ class BelfilesController < ApplicationController
         end
         
         # Statement object object node
-        @statement_object_object_node = Node.find_by('label' => "#{statement.object.object}")
+        @statement_object_object_node = Node.find_by label: "#{statement.object.object}", graph_id: graph.id
         if @statement_object_object_node.blank?
           @statement_object_object_node = Node.new
           @statement_object_object_node.label = "#{statement.object.object}"
@@ -70,7 +70,7 @@ class BelfilesController < ApplicationController
         end
         ## In nested statements, edges connect inner object subject to its object
         @object_subject_to_object_edge = Edge.new
-        @object_subject_to_object_edge.label = "#{statement.object.relationship}"
+        @object_subject_to_object_edge.relation = "#{statement.object.relationship}"
         @object_subject_to_object_edge.source = @statement_object_subject_node
         @object_subject_to_object_edge.target = @statement_object_object_node
         @object_subject_to_object_edge.graph = graph
@@ -78,21 +78,21 @@ class BelfilesController < ApplicationController
 
         ## And then edges connect statement subject to inner object subject...
         @statement_subject_to_subject_edge = Edge.new
-        @statement_subject_to_subject_edge.label = "#{statement.relationship}"
+        @statement_subject_to_subject_edge.relation = "#{statement.relationship}"
         @statement_subject_to_subject_edge.source = @statement_subject_node
         @statement_subject_to_subject_edge.target = @statement_object_subject_node
         @statement_subject_to_subject_edge.graph = graph
         @statement_subject_to_subject_edge.save
         ## ...and to inner object object
         @statement_subject_to_object_edge = Edge.new
-        @statement_subject_to_object_edge.label = "#{statement.relationship}"
+        @statement_subject_to_object_edge.relation = "#{statement.relationship}"
         @statement_subject_to_object_edge.source = @statement_subject_node
         @statement_subject_to_object_edge.target = @statement_object_object_node
         @statement_subject_to_object_edge.graph = graph
         @statement_subject_to_object_edge.save
       elsif statement.subject_only?
         ## Statement subject
-        @subject_statement_node = Node.find_by('label' => "#{statement.subject}")
+        @subject_statement_node = Node.find_by label: "#{statement.subject}", graph_id: graph.id
         if @subject_statement_node.blank?
           @subject_statement_node = Node.new
           @subject_statement_node.label = "#{statement.subject}"
@@ -103,7 +103,7 @@ class BelfilesController < ApplicationController
 
         ## Edges connect statement subject to its arguments
         statement.subject.arguments.each do |argument|
-          @subject_statement_argument_node = Node.find_by('label' => "#{argument}")
+          @subject_statement_argument_node = Node.find_by label: "#{argument}", graph_id: graph.id
           if @subject_statement_argument_node.blank?
             @subject_statement_argument_node = Node.new
             @subject_statement_argument_node.label = "#{argument}"
@@ -111,7 +111,7 @@ class BelfilesController < ApplicationController
             @subject_statement_argument_node.save
           end
           @subject_statement_edge = Edge.new
-          @subject_statement_edge.label = "hasComponent"
+          @subject_statement_edge.relation = "hasComponent"
           @subject_statement_edge.source = @subject_statement_node
           @subject_statement_edge.target = @subject_statement_argument_node
           @subject_statement_edge.graph = graph
@@ -130,6 +130,7 @@ class BelfilesController < ApplicationController
 
   def show
     @belfile = Belfile.find(params[:id])
+    @json_graph_cystoscape_url = '"' + graph_url(params[:id], type: JSON_GRAPH_CYTOSCAPE, format: :json) + '"'
   end
 
   def graph

@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require cytoscape.js/dist/cytoscape.js
+//= require cytoscape.js-navigator/cytoscape.js-navigator.js
 //= require d3.js/d3.js
 //= require scripts.js
