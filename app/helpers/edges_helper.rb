@@ -36,4 +36,9 @@ module EdgesHelper
       }
     end.to_json.html_safe
   end
+
+  ##
+  ## Add here new json graph formats
+  ##
+  ## OBS: Remember to add its constant value to config/initializers/json_graph_constants.rb
 end

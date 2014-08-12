@@ -11,6 +11,8 @@ $(document).ready(function(){
       $("#cy").cytoscape({
         textureOnViewport: true,
         boxSelectionEnabled: false,
+        hideEdgesOnViewport: true,
+        hideLabelsOnViewport: true,
         style: cytoscape.stylesheet().selector('node').css({
           'content': 'data(name)',
           'text-valign': 'center',
@@ -26,7 +28,7 @@ $(document).ready(function(){
           'target-arrow-color': 'black',
           'source-arrow-color': 'black'
         }).selector('.faded').css({
-          'opacity': 0.25,
+          'visibility': 'hidden',
           'text-opacity': 0
         }),
         elements: graph,
@@ -59,7 +61,6 @@ $(document).ready(function(){
       alert(errorThrown);
    }
   });
-
 });
 </script>
 

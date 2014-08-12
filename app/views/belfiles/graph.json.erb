@@ -11,16 +11,16 @@ case params[:type].to_i
             description: "<%= @belfile.description %>",
             url: "<%= belfile_path(@belfile) %>"
           },
-          nodes: <%=raw nodes_as_json_graph_specification(@belfile.graph.nodes) %>,
-          edges: <%=raw edges_as_json_graph_specification(@belfile.graph.edges) %>
+          nodes: <%=raw nodes_as_json_graph_specification(@nodes) %>,
+          edges: <%=raw edges_as_json_graph_specification(@edges) %>
         }
       }
     <%
   when JSON_GRAPH_CYTOSCAPE
     %>
       {
-        "nodes": <%=raw nodes_as_json_graph_cytoscape(@belfile.graph.nodes) %>,
-        "edges": <%=raw edges_as_json_graph_cytoscape(@belfile.graph.edges) %>
+        "nodes": <%=raw nodes_as_json_graph_cytoscape(@nodes) %>,
+        "edges": <%=raw edges_as_json_graph_cytoscape(@edges) %>
       }
     <%
   when JSON_GRAPH_D3

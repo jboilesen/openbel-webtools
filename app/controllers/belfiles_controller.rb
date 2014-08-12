@@ -130,11 +130,22 @@ class BelfilesController < ApplicationController
 
   def show
     @belfile = Belfile.find(params[:id])
-    @json_graph_cystoscape_url = '"' + graph_url(params[:id], type: JSON_GRAPH_CYTOSCAPE, format: :json) + '"'
+    if (params.has_key?(:node))
+      @json_graph_cystoscape_url = '"' + graph_url(params[:id], type: JSON_GRAPH_CYTOSCAPE, node: params[:node], format: :json) + '"'
+    else
+      @json_graph_cystoscape_url = '"' + graph_url(params[:id], type: JSON_GRAPH_CYTOSCAPE, format: :json) + '"'
+    end
   end
 
   def graph
     @belfile = Belfile.find(params[:id])
+    if (params.has_key?(:node))
+      @nodes = Node.find_by_sql ['SELECT distinct n.* FROM nodes n INNER JOIN (SELECT * from edges WHERE (source_id = ? OR target_id = ?) AND graph_id = ?) e ON n.id = e.source_id OR n.id = e.target_id', params[:node], params[:node], @belfile.graph.id]
+      @edges = Edge.find_by_sql ['SELECT distinct e.* FROM nodes n INNER JOIN (SELECT * from edges WHERE (source_id = ? OR target_id = ?) AND graph_id = ?) e ON n.id = e.source_id OR n.id = e.target_id', params[:node], params[:node], @belfile.graph.id]
+    else
+      @nodes = @belfile.graph.nodes
+      @edges = @belfile.graph.edges
+    end
   end
 
   def create
