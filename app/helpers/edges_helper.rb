@@ -29,7 +29,7 @@ module EdgesHelper
         :group => 'edges',
         :data => {
           :id => 'e' + edge.id.to_s,
-          :relation => edge.relation,
+          :interaction => edge.relation,
           :source => 'n' + edge.source_id.to_s, 
           :target => 'n' + edge.target_id.to_s
         }

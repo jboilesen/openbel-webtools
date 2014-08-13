@@ -35,9 +35,7 @@ module NodesHelper
         :data => {
           :id => 'n' + node.id.to_s,
           :name => node.label,
-          :metadata => {
-            :fx => node.fx
-          }
+          :bel_function => node.fx
           ##  :parent => 'nparent', // indicates the compound node parent id; not defined => no parent
         }
       }

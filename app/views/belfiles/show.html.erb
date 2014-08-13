@@ -13,24 +13,946 @@ $(document).ready(function(){
         boxSelectionEnabled: false,
         hideEdgesOnViewport: true,
         hideLabelsOnViewport: true,
-        style: cytoscape.stylesheet().selector('node').css({
-          'content': 'data(name)',
-          'text-valign': 'center',
-          'color': 'white',
-          'text-outline-width': 2,
-          'text-outline-color': '#888'
-        }).selector('edge').css({
-          'target-arrow-shape': 'triangle',
-          'content': 'data(relation)'
-        }).selector(':selected').css({
-          'background-color': 'black',
-          'line-color': 'black',
-          'target-arrow-color': 'black',
-          'source-arrow-color': 'black'
-        }).selector('.faded').css({
-          'visibility': 'hidden',
-          'text-opacity': 0
-        }),
+        style: [ {
+            "selector" : "node",
+            "css" : {
+              "background-color" : "rgb(255,255,255)",
+              "height" : 30.0,
+              "color" : "rgb(0,0,0)",
+              "shape" : "rectangle",
+              "text-valign" : "center",
+              "text-halign" : "center",
+              "border-opacity" : 1.0,
+              "background-opacity" : 1.0,
+              "border-color" : "rgb(0,0,0)",
+              "text-opacity" : 1.0,
+              "font-size" : 12,
+              "font-family" : "Dialog.plain",
+              "font-weight" : "normal",
+              "width" : 70.0,
+              "border-width" : 1.0,
+              "content" : "data(name)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'transcriptionalActivity']",
+            "css" : {
+              "width" : 100.0,
+              "height" : 100.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'reaction']",
+            "css" : {
+              "background-color" : "rgb(150,150,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'degradation']",
+            "css" : {
+              "background-color" : "rgb(255,50,100)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'transcriptionalActivity']",
+            "css" : {
+              "background-color" : "rgb(100,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'transportActivity']",
+            "css" : {
+              "background-color" : "rgb(100,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'pathology']",
+            "css" : {
+              "background-color" : "rgb(255,50,100)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'cellSurfaceExpression']",
+            "css" : {
+              "background-color" : "rgb(200,200,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'gtpBoundActivity']",
+            "css" : {
+              "background-color" : "rgb(100,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'catalyticActivity']",
+            "css" : {
+              "background-color" : "rgb(100,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'proteinAbundance']",
+            "css" : {
+              "background-color" : "rgb(100,255,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'phosphataseActivity']",
+            "css" : {
+              "background-color" : "rgb(100,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'molecularActivity']",
+            "css" : {
+              "background-color" : "rgb(100,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'cellSecretion']",
+            "css" : {
+              "background-color" : "rgb(200,200,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'chaperoneActivity']",
+            "css" : {
+              "background-color" : "rgb(100,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'complexAbundance']",
+            "css" : {
+              "background-color" : "rgb(100,150,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'compositeAbundance']",
+            "css" : {
+              "background-color" : "rgb(200,255,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'microRNAAbundance']",
+            "css" : {
+              "background-color" : "rgb(150,255,150)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'biologicalProcess']",
+            "css" : {
+              "background-color" : "rgb(255,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'peptidaseActivity']",
+            "css" : {
+              "background-color" : "rgb(100,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'geneAbundance']",
+            "css" : {
+              "background-color" : "rgb(200,255,200)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'translocation']",
+            "css" : {
+              "background-color" : "rgb(200,200,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'ribosylationActivity']",
+            "css" : {
+              "background-color" : "rgb(100,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'rnaAbundance']",
+            "css" : {
+              "background-color" : "rgb(100,255,100)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'abundance']",
+            "css" : {
+              "background-color" : "rgb(100,200,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'kinaseActivity']",
+            "css" : {
+              "background-color" : "rgb(100,100,255)"
+            }
+          }, {
+            "selector" : "node[bel_function = 'reaction']",
+            "css" : {
+              "shape" : "parallelogram"
+            }
+          }, {
+            "selector" : "node[bel_function = 'degradation']",
+            "css" : {
+              "shape" : "roundrectangle"
+            }
+          }, {
+            "selector" : "node[bel_function = 'transcriptionalActivity']",
+            "css" : {
+              "shape" : "hexagon"
+            }
+          }, {
+            "selector" : "node[bel_function = 'transportActivity']",
+            "css" : {
+              "shape" : "roundrectangle"
+            }
+          }, {
+            "selector" : "node[bel_function = 'pathology']",
+            "css" : {
+              "shape" : "parallelogram"
+            }
+          }, {
+            "selector" : "node[bel_function = 'cellSurfaceExpression']",
+            "css" : {
+              "shape" : "v"
+            }
+          }, {
+            "selector" : "node[bel_function = 'catalyticActivity']",
+            "css" : {
+              "shape" : "hexagon"
+            }
+          }, {
+            "selector" : "node[bel_function = 'gtpBoundActivity']",
+            "css" : {
+              "shape" : "hexagon"
+            }
+          }, {
+            "selector" : "node[bel_function = 'proteinAbundance']",
+            "css" : {
+              "shape" : "roundrectangle"
+            }
+          }, {
+            "selector" : "node[bel_function = 'phosphataseActivity']",
+            "css" : {
+              "shape" : "hexagon"
+            }
+          }, {
+            "selector" : "node[bel_function = 'cellSecretion']",
+            "css" : {
+              "shape" : "v"
+            }
+          }, {
+            "selector" : "node[bel_function = 'molecularActivity']",
+            "css" : {
+              "shape" : "hexagon"
+            }
+          }, {
+            "selector" : "node[bel_function = 'chaperoneActivity']",
+            "css" : {
+              "shape" : "hexagon"
+            }
+          }, {
+            "selector" : "node[bel_function = 'complexAbundance']",
+            "css" : {
+              "shape" : "roundrectangle"
+            }
+          }, {
+            "selector" : "node[bel_function = 'compositeAbundance']",
+            "css" : {
+              "shape" : "roundrectangle"
+            }
+          }, {
+            "selector" : "node[bel_function = 'microRNAAbundance']",
+            "css" : {
+              "shape" : "ellipse"
+            }
+          }, {
+            "selector" : "node[bel_function = 'biologicalProcess']",
+            "css" : {
+              "shape" : "parallelogram"
+            }
+          }, {
+            "selector" : "node[bel_function = 'peptidaseActivity']",
+            "css" : {
+              "shape" : "hexagon"
+            }
+          }, {
+            "selector" : "node[bel_function = 'geneAbundance']",
+            "css" : {
+              "shape" : "ellipse"
+            }
+          }, {
+            "selector" : "node[bel_function = 'translocation']",
+            "css" : {
+              "shape" : "v"
+            }
+          }, {
+            "selector" : "node[bel_function = 'ribosylationActivity']",
+            "css" : {
+              "shape" : "hexagon"
+            }
+          }, {
+            "selector" : "node[bel_function = 'kinaseActivity']",
+            "css" : {
+              "shape" : "hexagon"
+            }
+          }, {
+            "selector" : "node[bel_function = 'rnaAbundance']",
+            "css" : {
+              "shape" : "ellipse"
+            }
+          }, {
+            "selector" : "node[bel_function = 'abundance']",
+            "css" : {
+              "shape" : "diamond"
+            }
+          }, {
+            "selector" : "node[linked = 'false']",
+            "css" : {
+              "text-opacity" : 0.39215686274509803
+            }
+          }, {
+            "selector" : "node[linked = 'true']",
+            "css" : {
+              "text-opacity" : 1.0
+            }
+          }, {
+            "selector" : "node[linked = 'false']",
+            "css" : {
+              "border-opacity" : 0.39215686274509803
+            }
+          }, {
+            "selector" : "node[linked = 'true']",
+            "css" : {
+              "border-opacity" : 1.0
+            }
+          }, {
+            "selector" : "node[linked = 'false']",
+            "css" : {
+              "background-opacity" : 0.39215686274509803
+            }
+          }, {
+            "selector" : "node[linked = 'true']",
+            "css" : {
+              "background-opacity" : 1.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'reaction']",
+            "css" : {
+              "width" : 150.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'degradation']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'transcriptionalActivity']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'transportActivity']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'pathology']",
+            "css" : {
+              "width" : 125.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'cellSurfaceExpression']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'catalyticActivity']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'gtpBoundActivity']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'proteinAbundance']",
+            "css" : {
+              "width" : 75.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'phosphataseActivity']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'cellSecretion']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'molecularActivity']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'chaperoneActivity']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'microRNAAbundance']",
+            "css" : {
+              "width" : 75.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'complexAbundance']",
+            "css" : {
+              "width" : 150.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'compositeAbundance']",
+            "css" : {
+              "width" : 150.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'biologicalProcess']",
+            "css" : {
+              "width" : 125.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'peptidaseActivity']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'geneAbundance']",
+            "css" : {
+              "width" : 75.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'translocation']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'ribosylationActivity']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'abundance']",
+            "css" : {
+              "width" : 75.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'rnaAbundance']",
+            "css" : {
+              "width" : 75.0
+            }
+          }, {
+            "selector" : "node[bel_function = 'kinaseActivity']",
+            "css" : {
+              "width" : 110.0
+            }
+          }, {
+            "selector" : "node:selected",
+            "css" : {
+              "background-color" : "rgb(255,255,0)"
+            }
+          }, {
+            "selector" : "edge",
+            "css" : {
+              "target-arrow-shape" : "none",
+              "font-size" : 10,
+              "width" : 1.0,
+              "target-arrow-color" : "rgb(0,0,0)",
+              "font-family" : "Dialog.plain",
+              "font-weight" : "normal",
+              "line-style" : "solid",
+              "source-arrow-color" : "rgb(0,0,0)",
+              "content" : "data(interaction)",
+              "line-color" : "rgb(0,0,0)",
+              "color" : "rgb(0,0,0)",
+              "opacity" : 1.0,
+              "source-arrow-shape" : "none",
+              "text-opacity" : 1.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasModification']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'directlyIncreases']",
+            "css" : {
+              "target-arrow-shape" : "triangle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'includes']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'subProcessOf']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'analogous']",
+            "css" : {
+              "target-arrow-shape" : "triangle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'rateLimitingStepOf']",
+            "css" : {
+              "target-arrow-shape" : "triangle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'actsIn']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'increases']",
+            "css" : {
+              "target-arrow-shape" : "triangle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'subProcess_OF']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'positiveCorrelation']",
+            "css" : {
+              "target-arrow-shape" : "triangle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'biomarkerFor']",
+            "css" : {
+              "target-arrow-shape" : "triangle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'transcribedTo']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'translatedTo']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasProduct']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'association']",
+            "css" : {
+              "target-arrow-shape" : "none"
+            }
+          }, {
+            "selector" : "edge[interaction = 'prognosticBiomarkerFor']",
+            "css" : {
+              "target-arrow-shape" : "triangle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'unknown']",
+            "css" : {
+              "target-arrow-shape" : "triangle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'reactantIn']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasVariant']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'negativeCorrelation']",
+            "css" : {
+              "target-arrow-shape" : "circle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasMember']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'decreases']",
+            "css" : {
+              "target-arrow-shape" : "circle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'translocates']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'isA']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'directlyDecreases']",
+            "css" : {
+              "target-arrow-shape" : "circle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasComponent']",
+            "css" : {
+              "target-arrow-shape" : "diamond"
+            }
+          }, {
+            "selector" : "edge[interaction = 'orthologous']",
+            "css" : {
+              "target-arrow-shape" : "none"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasModification']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'directlyIncreases']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'includes']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'subProcessOf']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'actsIn']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'rateLimitingStepOf']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'increases']",
+            "css" : {
+              "width" : 1.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'causesNoChange']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'subProcess_OF']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'positiveCorrelation']",
+            "css" : {
+              "width" : 1.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'biomarkerFor']",
+            "css" : {
+              "width" : 1.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'transcribedTo']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'translatedTo']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasProduct']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'association']",
+            "css" : {
+              "width" : 1.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'prognosticBiomarkerFor']",
+            "css" : {
+              "width" : 1.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'reactantIn']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasVariant']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'negativeCorrelation']",
+            "css" : {
+              "width" : 1.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'decreases']",
+            "css" : {
+              "width" : 1.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasMember']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'translocates']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'isA']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'directlyDecreases']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasComponent']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'orthologous']",
+            "css" : {
+              "width" : 3.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'translatedTo']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasModification']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasProduct']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'association']",
+            "css" : {
+              "line-style" : "dotted"
+            }
+          }, {
+            "selector" : "edge[interaction = 'prognosticBiomarkerFor']",
+            "css" : {
+              "line-style" : "dotted"
+            }
+          }, {
+            "selector" : "edge[interaction = 'directlyIncreases']",
+            "css" : {
+              "line-style" : "solid"
+            }
+          }, {
+            "selector" : "edge[interaction = 'reactantIn']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasVariant']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'includes']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'negativeCorrelation']",
+            "css" : {
+              "line-style" : "dotted"
+            }
+          }, {
+            "selector" : "edge[interaction = 'subProcessOf']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'actsIn']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'rateLimitingStepOf']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasMember']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'translocates']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'causesNoChange']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'subProcess_OF']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'isA']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'directlyDecreases']",
+            "css" : {
+              "line-style" : "solid"
+            }
+          }, {
+            "selector" : "edge[interaction = 'positiveCorrelation']",
+            "css" : {
+              "line-style" : "dotted"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasComponent']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'biomarkerFor']",
+            "css" : {
+              "line-style" : "dotted"
+            }
+          }, {
+            "selector" : "edge[interaction = 'orthologous']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'transcribedTo']",
+            "css" : {
+              "line-style" : "dashed"
+            }
+          }, {
+            "selector" : "edge[interaction = 'translatedTo']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasModification']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasProduct']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'reactantIn']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasVariant']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'includes']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'subProcessOf']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'actsIn']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasMember']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'translocates']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'subProcess_OF']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'isA']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasComponent']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'orthologous']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[interaction = 'transcribedTo']",
+            "css" : {
+              "line-color" : "rgb(153,153,153)"
+            }
+          }, {
+            "selector" : "edge[linked = 'false']",
+            "css" : {
+              "opacity" : 0.19607843137254902
+            }
+          }, {
+            "selector" : "edge[linked = 'true']",
+            "css" : {
+              "opacity" : 1.0
+            }
+          }, {
+            "selector" : "edge[interaction = 'association']",
+            "css" : {
+              "source-arrow-shape" : "none"
+            }
+          }, {
+            "selector" : "edge[interaction = 'hasMember']",
+            "css" : {
+              "source-arrow-shape" : "none"
+            }
+          }, {
+            "selector" : "edge[interaction = 'positiveCorrelation']",
+            "css" : {
+              "source-arrow-shape" : "triangle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'negativeCorrelation']",
+            "css" : {
+              "source-arrow-shape" : "circle"
+            }
+          }, {
+            "selector" : "edge[interaction = 'orthologous']",
+            "css" : {
+              "source-arrow-shape" : "none"
+            }
+          }, {
+            "selector" : "edge:selected",
+            "css" : {
+              "line-color" : "rgb(255,0,0)"
+            }
+          } ],
         elements: graph,
         layout: {
           fit: false,
@@ -43,18 +965,6 @@ $(document).ready(function(){
         ready: function(){
           window.cy = this;
           cy.elements().unselectify();
-          cy.on('tap', 'node', function(e){
-            var node = e.cyTarget; 
-            var neighborhood = node.neighborhood().add(node);  
-            cy.elements().addClass('faded');
-            neighborhood.removeClass('faded');
-          });
-      
-          cy.on('tap', function(e){
-            if( e.cyTarget === cy ){
-              cy.elements().removeClass('faded');
-            }
-          });
         }
       }).cy(function(){
         $('#cy').cytoscapeNavigator();
